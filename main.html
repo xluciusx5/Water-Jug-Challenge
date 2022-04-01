@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+        <head> 
+            <h1>
+                Water Jug Challenge
+            </h1>
+            <br>
+            
+        </head>
+
+
+        <body>
+            <!--Enter values for jugs X, Y, Z-->
+            Jug X: <input type="number" id="myNumberX" placeholder="Type in Jug X Value">
+            <br><br>
+            Jug Y: <input type="number" id="myNumberY" placeholder="Type in Jug Y Value">
+            <br><br>
+            Jug Z: <input type="number" id="myNumberZ" placeholder="Type in Jug Y Value">
+            <br><br>
+
+            <!--Challenge Verification Button-->
+            <button onCLick="additionFunction()"> Check if JugZ can be filled using one or both Jugs- X, Y</button>
+
+            <p id="Solution"> </p>
+
+            <script>
+                function additionFunction()
+                {
+                        //initialising variables with jugs XYZ values
+                    var jugX= myNumberX.value;
+                    var jugY= myNumberY.value;
+                    var jugZ= myNumberZ.value;
+                    var aux1= 0;
+                    var aux2= 0;
+                    var checker= 0;
+                    var noSolution="There's no solution for the values you inputed";
+
+                    
+                    if(parseFloat(jugZ)% parseFloat(jugX)=== 0)
+                    {
+                        aux1= parseFloat(jugZ)/ parseFloat(jugX);
+                        //=> x* aux1=z
+                    }
+                    if(parseFloat(jugZ)% parseFloat(jugY)=== 0)
+                    {
+                        aux2= parseFloat(jugZ)/ parseFloat(jugY);
+                        //=> y* aux2=z
+                    }
+
+                    //case when jug X and jug Y have different values, but both are exact divisors of jug Z
+                    //thus, we choose the fastest (most efficient) way- the greater exact divisor
+                    if(aux1!= 0 && aux2!= 0)
+                    {
+                        if(aux1< aux2)
+                        {
+                            document.getElementById("Solution").innerHTML= aux1+ + " times: Bucket X needs to be filled and spilled into Jug Z in order to fill it";
+                            checker++;
+                        }
+                        
+                        if(aux2< aux1)
+                        {
+                            document.getElementById("Solution").innerHTML= aux2 + " times: Bucket Y needs to be filled and spilled into Jug Z in order to fill it";
+                            checker++;
+                        }
+                    }
+
+                    //ideal case, when either X or Y jugs have a volume that's an exact divisor of jug Z
+                    if(checker=== 0)
+                    {
+                        if(aux1!= 0)
+                        {
+                            document.getElementById("Solution").innerHTML= aux1 + " times: Bucket X needs to be filled and spilled into Jug Z in order to fill it";
+                        }
+
+                        if(aux2!= 0)
+                        {
+                            document.getElementById("Solution").innerHTML= aux2 + " times: Bucket Y needs to be filled and spilled into Jug Z in order to fill it";
+                        }
+                    }
+                    
+
+                    //case when jugX combined with jugY add to the eaxct volume of jugZ
+                    if(parseFloat(jugX)+ parseFloat(jugY)=== parseFloat(jugZ))
+                    {
+                        document.getElementById("Solution").innerHTML= "Jug X and Jug Y can be poured together and fill Jug Z";
+                    }
+
+                    //case when jugX and jugY have different values, none of them are exact divisors of jugZ volume, but jugZ can be filled to it's full capacity
+                    //create copies of the jugs' volumes
+                    var copyX= parseFloat(jugX);
+                    var copyY= parseFloat(jugY);
+                    var copyZ= parseFloat(jugZ);
+
+                    var carbonCopyX= copyX;
+                    var carbonCopyY= copyY;
+                    var carbonCopyZ= 0;
+                    
+                    var checker2= 0;
+                    
+                    for(var counter= 0; counter <= Math.max(copyX, copyY); counter++)
+                    {
+                        
+                            carbonCopyX= copyX- copyY;
+                            carbonCopyY= copyY;
+
+                            carbonCopyZ= carbonCopyX+ carbonCopyZ;
+                            carbonCopyX= 0;
+
+                            carbonCopyX= carbonCopyY+ carbonCopyX;
+                            carbonCopyY= 0;
+
+                            carbonCopyX= copyX;
+
+                        if(carbonCopyZ=== copyZ)
+                        {
+                            document.getElementById("Solution").innerHTML=  "JugZ can be filled using multiple transfers, refills and empty from JugX and JugY ";
+                            checker2= 1;
+                        }
+
+                    }
+
+                    //case when there's no solution
+                   if(aux1=== 0 && aux2=== 0 && checker2=== 0)
+                    {
+                        document.getElementById("Solution").innerHTML=  noSolution;
+                    }
+                }
+            </script>
+
+            
+        </body>
+
+        
+
+</html>
