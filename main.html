@@ -87,7 +87,9 @@
 
                     //case when jugX and jugY have different values, none of them are exact divisors of jugZ volume, but jugZ can be filled to it's full capacity
                     //create copies of the jugs' volumes
-                    var copyX= parseFloat(jugX);
+                    if(parseFloat(jugX) > parseFloat(jugY))
+                    {
+                        var copyX= parseFloat(jugX);
                     var copyY= parseFloat(jugY);
                     var copyZ= parseFloat(jugZ);
 
@@ -118,6 +120,46 @@
                         }
 
                     }
+
+                    }
+
+                    if(parseFloat(jugX) < parseFloat(jugY))
+                    {
+                        var copyX= parseFloat(jugX);
+                    var copyY= parseFloat(jugY);
+                    var copyZ= parseFloat(jugZ);
+
+                    var carbonCopyX= copyX;
+                    var carbonCopyY= copyY;
+                    var carbonCopyZ= 0;
+                    
+                    var checker2= 0;
+                    
+                    for(var counter= 0; counter <= Math.max(copyX, copyY); counter++)
+                    {
+                        
+                            carbonCopyY= copyY- copyX;
+                            carbonCopyX= copyX;
+
+                            carbonCopyZ= carbonCopyY+ carbonCopyZ;
+                            carbonCopyY= 0;
+
+                            carbonCopyY= carbonCopyX+ carbonCopyY;
+                            carbonCopyX= 0;
+
+                            carbonCopyY= copyY;
+
+                        if(carbonCopyZ=== copyZ)
+                        {
+                            document.getElementById("Solution").innerHTML=  "JugZ can be filled using multiple transfers, refills and empty from JugX and JugY ";
+                            checker2= 1;
+                        }
+
+                    }
+
+                    }
+
+                    
 
                     //case when there's no solution
                    if(aux1=== 0 && aux2=== 0 && checker2=== 0)
